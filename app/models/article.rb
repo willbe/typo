@@ -466,4 +466,25 @@ class Article < Content
     to = to - 1 # pull off 1 second so we don't overlap onto the next day
     return from..to
   end
+
+  def self.merge(article1 = nil, article2 = nil)
+    if (article1.is_a?(Article) && article2.is_a?(Article)) 
+      article1.body = article1.body + "\n" + article2.body
+      article1.save
+      article2.comments.each do |cmnt|
+        article1.comments << cmnt
+      end
+
+      article2.delete
+      return article1
+    else 
+      if (article1.is_a?(Article)) 
+        return article1
+      else
+        return nil
+      end
+    end
+
+  end
+
 end

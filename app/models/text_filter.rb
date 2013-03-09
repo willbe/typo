@@ -1,6 +1,15 @@
 require 'net/http'
 require './app/models/content.rb'
 
+class ContentTextHelpers
+  include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::SanitizeHelper
+  include ActionView::Helpers::TextHelper
+  extend ActionView::Helpers::SanitizeHelper::ClassMethods
+end
+
+
 class TextFilter < ActiveRecord::Base
   serialize :filters
   serialize :params

@@ -4,3 +4,7 @@
   <%= render :partial => "form" %>
 
 <% end %>
+
+<% if current_user.admin? and form_type == "article" %>
+<%= render 'admin/content/merge', { :form_type => "article", :form_action => { :action => "merge", :id => @article.id } }  %>
+<% end %>
